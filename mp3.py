@@ -1,5 +1,6 @@
 import pygame
 import tkinter as tkr
+import os
 
 """Creating Window"""
 player = tkr.Tk()
@@ -7,15 +8,29 @@ player = tkr.Tk()
 player.title("Audio Player")
 player.geometry("205x340")
 
-"""Get Song"""
-file = "Song.mp3"
+"""Playlist Register"""
+os.chdir("D:/mp3-player/mp3-player/Songs")
+print(os.getcwd)
+songlist = os.listdir()
+
+"""Playlist"""
+playlist = tkr.Listbox(player, highlightcolor = "blue", selectmode = tkr.SINGLE)
+print(songlist)
+for item in songlist:
+	pos = 0
+	playlist.insert(pos, item)
+	pos = pos + 1
+
+
+"""Pygame Inits"""
+pygame.init()
+pygame.mixer.init()
 
 
 """Action Event"""
 def Play():
-	pygame.init()
-	pygame.mixer.init()
-	pygame.mixer.music.load(file)
+	pygame.mixer.music.load(playlist.get(tkr.ACTIVE))
+	var.set(playlist.get(tkr.ACTIVE))
 	pygame.mixer.music.play()
 
 def ExitPlayer():
@@ -25,17 +40,21 @@ def ExitPlayer():
 
 """Buttons"""
 button1 = tkr.Button(player, width=5, height=3, text="PLAY", command=Play)
-button1.pack(fill="x")
 button2 = tkr.Button(player, width=5, height=3, text="STOP", command=ExitPlayer)
-button2.pack(fill="x")
 
 """Songs"""
-label1 = tkr.LabelFrame(player, text= "Song Name")
-label1.pack(fill="both", expand="yes")
-content1 = tkr.Label(label1, text = file)
-content1.pack()
+var = tkr.StringVar()
+songtitle = tkr.Label(player, textvariable = var)
 
+
+
+"""Place Widgets"""
+button1.pack(fill="x")
+button2.pack(fill="x")
+songtitle.pack()
+playlist.pack(fill="both", expand= "yes")
 
 
 """Activation"""
 player.mainloop()
+
