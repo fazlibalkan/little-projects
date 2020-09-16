@@ -32,6 +32,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
+ball.dx = 0.15
+ball.dy = 0.15
 
 
 """Functions"""
@@ -67,6 +69,37 @@ wn.onkeypress(PaddleBDown, "Down")
 """game loop"""
 while True:
 	wn.update()
+
+	#Move the ball
+	ball.setx(ball.xcor() + ball.dx)
+	ball.sety(ball.ycor() + ball.dy)
+
+	#Morder checking
+	if ball.ycor() > 290:
+		ball.sety(290)
+		ball.dy *= -1
+	if ball.ycor() < -290:
+		ball.sety(-290)
+		ball.dy *= -1
+
+	if ball.xcor() > 390:
+		ball.goto(0, 0)
+		ball.dx *= -1
+	if ball.xcor() < -390:
+		ball.goto(0, 0)
+		ball.dx *= -1
+
+	#paddle and ball collision
+	if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_b.ycor() -50):
+		ball.setx(340)
+		ball.dx *= -1
+
+	if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_a.ycor() -50):
+		ball.setx(-340)
+		ball.dx *= -1
+
+
+		
 
 
 
