@@ -1,5 +1,4 @@
 import turtle
-import os
 
 wn = turtle.Screen()
 wn.title("PONG")
@@ -116,7 +115,7 @@ while True:
 		ball.setx(340)
 		ball.dx *= -1
 
-	if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_b.ycor() + 50 and ball.ycor() > paddle_a.ycor() -50):
+	if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() -50):
 		ball.setx(-340)
 		ball.dx *= -1
 
